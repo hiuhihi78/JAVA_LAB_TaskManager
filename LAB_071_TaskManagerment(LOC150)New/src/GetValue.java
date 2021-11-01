@@ -67,15 +67,17 @@ class GetValue {
         }
     }
 
-    public static int getId(ArrayList<Task> list) {
-        int id = 0;
-        if (list.size() == 0) {
-            return 1;
-        }
-        Task lastTask = list.get(list.size() - 1);
-        id = lastTask.getId() + 1;
-        return id;
-    }
+//    public static int getId(ArrayList<Task> list) {
+//        int id = 0;
+//        if (list.size() == 0) {
+//            return 1;
+//        }
+//        Task lastTask = list.get(list.size() - 1);
+//        id = lastTask.getId() + 1;
+//        return id;
+//    }
+    
+  
 
     public static String getTaskType() {
         // get number tasktypeId
@@ -145,15 +147,7 @@ class GetValue {
         }
     }
 
-    public static double getTime(String date) {
-        double time = 0;
-        // get time start
-        double startTime = getStartTime(date);
-        // get time end with greater than start time
-        double endTime = getEndTime(startTime);
-        time = endTime - startTime;
-        return time;
-    }
+
 
     public static double getStartTime(String date) {
         double startTime = 0;

@@ -23,10 +23,17 @@ class Manager {
 
     public static void addTask(String fileName) {
         ArrayList<Task> list = new ArrayList<>();
+        // check file exsited
+        boolean fileExisted = Validation.checkFileExisted(fileName);
+        if (fileExisted == false) {
+            System.out.println("File is not existed!\n");
+            FileProcess.createNewFile(fileName);
+        }
         // read data from file
         list.addAll(FileProcess.readListTask(fileName));
         System.out.println("------------Add Task---------------");
-        int id = GetValue.getId(list);
+        int INDEX = 1;
+        int id = list.size() + 1;
         String name = GetValue.getInputString("Requirement Name");
         String taskType = GetValue.getTaskType();
         String date = GetValue.getDate();
@@ -37,7 +44,8 @@ class Manager {
         double to = GetValue.getEndTime(from);
         String assignee = GetValue.getInputString("Assignee");
         // check task was duplicated
-        boolean taskDuplicated = Validation.checkTaskDuplicate(list, date, from, to, assignee);
+        boolean taskDuplicated = Validation.checkTaskDuplicate(list, date, from,
+                to, assignee);
         if (taskDuplicated == true) {
             System.out.println("This task was duplicated time!\n");
             return;
@@ -71,7 +79,7 @@ class Manager {
             // traverse all element in list to delete obj have same id to remove
             for (int i = 0; i < list.size(); i++) {
                 if (list.get(i).getId() == id) {
-                    list.remove(i);
+                    list.set(i, new Task(0, "", "", "", 0, 0, "", ""));
                     System.out.println("Successfully!\n");
                     break;
                 }
@@ -101,7 +109,9 @@ class Manager {
         System.out.println(format);
         // traverse all element of list to get data of task
         for (int i = 0; i < list.size(); i++) {
-            System.out.println(list.get(i));
+            if(list.get(i).getId() != 0){
+                System.out.println(list.get(i));
+            }
         }
         System.out.println("");
     }

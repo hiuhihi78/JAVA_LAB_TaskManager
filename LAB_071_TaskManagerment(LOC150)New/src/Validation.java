@@ -73,7 +73,8 @@ class Validation {
         }
         return false;
     }
-
+    
+    
     public static boolean checkTaskExistedById(ArrayList<Task> list, int id) {
         // traverse all element of list to check obj have same id
         for (int i = 0; i < list.size(); i++) {
@@ -91,9 +92,17 @@ class Validation {
             for (Task task : list) {
                 if (task.getAssignee().equalsIgnoreCase(assignee)
                         && task.getDate().equalsIgnoreCase(date)) {
+                    // check time is same with time obj
+                    if(from == task.getFrom() && to == task.getTo()){
+                        return true;
+                    }
+                    // check time from is in range (timeFromObj, timeToObj)
                     boolean fromDuplicate = checkANumberInRange(from, task.getFrom(), task.getTo());
+                    // check time to is in range (timeFromObj, timeToObj)
                     boolean toDuplicate = checkANumberInRange(to, task.getFrom(), task.getTo());
+                    // check timeFromObj in range (from, to)
                     boolean fromTaskDuplicate = checkANumberInRange(task.getFrom(), from, to);
+                    // check timeToObj in range (from, to)
                     boolean toTaskDuplicate = checkANumberInRange(task.getTo(), from, to);
                     if (fromDuplicate == false && toDuplicate == false
                             && fromTaskDuplicate == false && toTaskDuplicate == false) {

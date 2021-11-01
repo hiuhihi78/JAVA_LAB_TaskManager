@@ -59,18 +59,21 @@ public class FileProcess {
 //            }
 //        }
 //    }
-    public static List<Task> readListTask(String fileName) {
-        FileInputStream fileInput = null;
-        boolean fileExisted = Validation.checkFileExisted(fileName);
-        if (fileExisted == false) {
-            System.out.println("File not existed in system!\n");
-            // create new file
-            writeListTask(new ArrayList<Task>(), fileName);
+    
+    public static void createNewFile(String fileName){
+        try {
+            File file = new File(fileName);
+            file.createNewFile();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+    }
+    public static ArrayList<Task> readListTask(String fileName) {
+        FileInputStream fileInput = null;
         try {
             fileInput = new FileInputStream(fileName);
             ObjectInputStream inputStream = new ObjectInputStream(fileInput);
-            List<Task> listAccount = (List<Task>) inputStream.readObject();
+            ArrayList<Task> listAccount =  (ArrayList<Task>) inputStream.readObject();
             return listAccount;
         } catch (Exception ex) {
         } finally {
